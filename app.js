@@ -3,6 +3,14 @@ const app= express()
 const morgan =require('morgan')
 const productRoutes=require('./api/routes/products') 
 const bodyParser=require('body-parser')
+const mongoose =require('mongoose')
+
+var url="mongodb+srv://nazimax:"+process.env.MONGO_ATLAS_PW+"@cluster0-g2fe8.mongodb.net/test?retryWrites=true"
+
+
+
+
+mongoose.connect(url/*,{useMongoClient:true}*/);
 
 
 const orderRoutes =require('./api/routes/orders')
@@ -21,6 +29,7 @@ app.use((req,res,next)=>{
         res.header('Access-Control-Allow-Methods','PUT, POST, DELETE, PATCH, GET')
         return res.status(200).json({});
     }
+    next();
 })
 
 app.use('/products',productRoutes)
