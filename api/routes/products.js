@@ -57,8 +57,16 @@ router.post('/',(req,res,next)=>{
     })
 
     res.status(201).json({
-        message:'handeling POST  requests to products',
-        product:product
+        message:'product created successfully',
+        product:{
+            name :result.name,
+            price: result.price,
+            _id: result._id,
+            request:{
+                type:'GET',
+                url:"http://localhost:3000/products/"+result._id
+            }
+        }
     })
 })
 
@@ -66,10 +74,18 @@ router.get('/:productId',(req,res,next)=>{
 
     const id = req.params.productId;
     Product.findById(id)
+    .select('name price _id')
     .exec()
     .then(doc =>{
         console.log(doc);
-        res.status(200).json(doc)
+        if(doc){
+            res.status(200).json(doc)
+        
+        }else{
+            res.status(404).json({
+                message :' No valid entry found for provided ID'
+            })
+        }
         
     })
     .catch(err=>{

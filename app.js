@@ -5,7 +5,6 @@ const productRoutes=require('./api/routes/products')
 const bodyParser=require('body-parser')
 const mongoose =require('mongoose')
 
-//var url="mongodb+srv://nazimax:nazimax@cluster0-g2fe8.mongodb.net/test?retryWrites=true"
 
 var url="mongodb://localhost:27017/shop"
 
